@@ -6,8 +6,10 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-dotenv.config();
+dotenv.config({path:__dirname+'/.env.example'});
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -32,6 +34,14 @@ const config: HardhatUserConfig = {
     },
     hardhat: {
       chainId:1337
+    },
+    goerli: {
+      url:process.env.GOERLI_API_KEY,
+      accounts: [process.env.METAMASK_PRIVATE_KEY ?? '']
+    },
+    rinkeby: {
+      url:process.env.RINKEBY_API_URL,
+      accounts:[process.env.METAMASK_PRIVATE_KEY ?? '']
     }
   },
   // typechain: {
@@ -39,5 +49,6 @@ const config: HardhatUserConfig = {
   //   target:"ethers-v5"
   // }
 };
+
 
 export default config;
