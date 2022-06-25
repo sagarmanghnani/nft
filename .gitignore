@@ -8,4 +8,4 @@ typechain
 cache
 artifacts
 .env.example
-
+typechain-types

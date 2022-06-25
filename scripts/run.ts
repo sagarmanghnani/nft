@@ -1,10 +1,13 @@
 import { ethers } from "hardhat";
+import {MyEpicNft} from '../typechain-types/contracts/MyEpicNft'
 
 async function main() {
-    const nftContractFactory = ethers.getContractFactory('MyEpicNft');
-    const nftContract =  (await nftContractFactory).deploy();
-    (await nftContract).deployed();
-    console.log("contract", nftContract);
+    const nftContractFactory = await ethers.getContractFactory('MyEpicNft');
+    const nftContract = await nftContractFactory.deploy() as unknown as MyEpicNft;
+    nftContract.deployed();
+    console.log("contract", nftContract.address);
+    let txn = await nftContract.makeNft();
+    await txn.wait();
 }
 
 const runMain = async () => {
@@ -15,5 +18,6 @@ const runMain = async () => {
         console.log(err, "error");
         process.exit(1);
     }
-
 }
+
+runMain();
